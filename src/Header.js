@@ -1,12 +1,20 @@
-import React from 'react'
-import './Header.css'
+import React from 'react';
+import './Header.css';
+import { useHistory } from 'react-router-dom';
 import SearchIcon from "@material-ui/icons/Search";
 import LanguageIcon from "@material-ui/icons/Language";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { Avatar } from "@material-ui/core";
 import { Link } from 'react-router-dom';
+import Search from './Search';
     
-function Header () {
+function Header (props) {
+    const history = useHistory();
+
+    const search = () => {
+        history.push('/search');
+    };
+
     return (
         <div className='header'>
           <Link to= '/'>
@@ -18,12 +26,11 @@ function Header () {
           </Link>  
           
           <div className='header_center'>
-              <input type="text" />
-              <SearchIcon />
+              <input type="text" onChange={ e => props.onSearchKeyWordChangeCallback(e.target.value) } />
+              <SearchIcon onClick={ search } />
           </div>
 
           <div className='header_right'>
-              <p>Become a host</p>
                <LanguageIcon />
                <ExpandMoreIcon />
                <Avatar />

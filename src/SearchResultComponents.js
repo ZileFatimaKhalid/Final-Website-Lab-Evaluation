@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import './SearchResultComponents.css';
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import StarIcon from "@material-ui/icons/Star";
@@ -11,10 +12,24 @@ function SearchResultComponents({
     star,
     price,
     total,
+    onItemSelected,
+    type,
 }) {
+    const history = useHistory();
+
+    const search = () => {
+        onItemSelected.updateDetailName(title);
+        onItemSelected.updateDetailDescription(description);
+        onItemSelected.updateDetailPrice(price);
+        onItemSelected.updateDetailImage(img);
+        onItemSelected.updateDetailType(type);
+        history.push('/detail');
+    };
+
     return (
         <div className='searchResultComponents'>
-            <img src={img} alt="" />
+            <img src={img} onClick={ search }></img>
+            {/* //<img src={img} alt="" />// */}
             <FavoriteBorderIcon className="searchResultComponents_heart" />
 
             <div className='searchResultComponents_info'>
@@ -42,5 +57,4 @@ function SearchResultComponents({
     )
 }
 
-export default SearchResultComponents
-   
+export default SearchResultComponents;
